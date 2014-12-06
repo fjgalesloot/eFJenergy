@@ -1,0 +1,1 @@
+int getprocmemsize( double *, double * );
