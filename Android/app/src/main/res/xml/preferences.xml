@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:key="pref_key_connection_settings"
+        android:title="@string/pref_title_connection_settings">
+        <EditTextPreference
+            android:title="@string/pref_title_api_key"
+            android:key="pref_key_api_key"
+            android:defaultValue="01e3567f-7b2a-485a-a382-92dbe620f366"
+            android:summary="@string/pref_sum_api_key"  />
+        <EditTextPreference
+            android:title="@string/pref_title_api_host"
+            android:key="pref_key_api_host"
+            android:defaultValue="secure.triplew.nl"
+            android:summary="@string/pref_sum_api_host"  />
+        <EditTextPreference
+            android:title="@string/pref_title_api_url"
+            android:key="pref_key_api_url"
+            android:defaultValue="eFJenergy"
+            android:summary="@string/pref_sum_api_url"  />
+        <EditTextPreference
+            android:title="@string/pref_title_api_port"
+            android:key="pref_key_api_port"
+            android:defaultValue=""
+            android:inputType="number"
+            android:summary="@string/pref_sum_api_port"  />
+        <CheckBoxPreference
+            android:title="@string/pref_title_api_ssl"
+            android:key="pref_key_api_ssl"
+            android:defaultValue="true"
+            android:summary="@string/pref_sum_api_ssl"  />
+        <CheckBoxPreference
+            android:title="@string/pref_title_api_ssl_trustall"
+            android:key="pref_key_api_ssl_trustall"
+            android:defaultValue="false"
+            android:summary="@string/pref_sum_api_ssl_trustall"  />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,44 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.1"
+
+    defaultConfig {
+        applicationId "nl.galesloot_ict.efjenergy"
+        minSdkVersion 15
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/notice.txt'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v4:21.+'
+    compile files('libs/achartengine-1.1.0.jar')
+    compile files('libs/commons-io-1.3.2.jar')
+    compile files('libs/commons-lang3-3.3.2.jar')
+    compile files('libs/jackson-annotations-2.2.3.jar')
+    compile files('libs/jackson-core-2.2.3.jar')
+    compile files('libs/robospice-1.4.13.jar')
+    compile files('libs/robospice-cache-1.4.13.jar')
+    compile files('libs/robospice-spring-android-1.4.13.jar')
+    compile files('libs/spring-android-core-1.0.1.RELEASE.jar')
+    compile files('libs/spring-android-rest-template-1.0.1.RELEASE.jar')
+    compile files('libs/jackson-databind-2.2.3.jar')
+}

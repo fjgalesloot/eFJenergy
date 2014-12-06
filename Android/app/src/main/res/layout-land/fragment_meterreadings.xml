@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/relativeLayout2" >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/layoutTextViews"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/title_tarif1"
+                android:id="@+id/labelTarif1"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_weight="1"
+                android:paddingLeft="10dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/textViewTarif1"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/labelTarif2"
+                android:layout_toEndOf="@+id/labelTarif2"
+                android:textAlignment="viewEnd"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:paddingRight="10dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/title_tarif2"
+                android:id="@+id/labelTarif2"
+                android:layout_below="@+id/labelTarif2"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_weight="1"
+                android:paddingLeft="10dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/textViewTarif2"
+                android:layout_toEndOf="@+id/labelTarif2"
+                android:layout_below="@+id/textViewTarif1"
+                android:layout_toRightOf="@+id/labelTarif2"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:textAlignment="viewEnd"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:paddingRight="10dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/meterreadings_chart"></LinearLayout>
+</LinearLayout>
