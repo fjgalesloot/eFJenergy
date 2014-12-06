@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">eFJenergy</string>
+    <string name="title_section_meterreading">Meter Readings</string>
+    <string name="title_section_usage">Usage</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="title_tarif1">Tarif 1</string>
+    <string name="title_tarif2">Tarif 2</string>
+    <string name="title_tariftotal">Total</string>
+    <string name="navigation_title">Select view</string>
+
+    <string name="pref_title_connection_settings">Connection settings</string>
+    <string name="pref_title_api_host">Hostname</string>
+    <string name="pref_sum_api_host">Enter the hostname or IP address.</string>
+    <string name="pref_title_api_url">Path for API</string>
+    <string name="pref_sum_api_url">Enter an optional extra path for the API URL.</string>
+    <string name="pref_title_api_port">Port</string>
+    <string name="pref_sum_api_port">Port number for http(s) connection.</string>
+    <string name="pref_title_api_ssl">Use SSL</string>
+    <string name="pref_sum_api_ssl">Use SSL for a secure connection.</string>
+    <string name="pref_title_api_ssl_trustall">Trust all certificates</string>
+    <string name="pref_sum_api_ssl_trustall">Trust all SSL server certificates.\nUse at your own risk.</string>
+    <string name="pref_title_api_key">API Key</string>
+    <string name="pref_sum_api_key">Key to get access to API.</string>
+
+    <string name="MeterReadingFailed">Getting meter readings failed.</string>
+
+    <string name="MaterReadingsBarChartTitle">Last week</string>
+    <string name="MaterReadingsBarChartTitleX">Day of week</string>
+    <string name="MaterReadingsBarChartTitleY">kWh</string>
+</resources>
