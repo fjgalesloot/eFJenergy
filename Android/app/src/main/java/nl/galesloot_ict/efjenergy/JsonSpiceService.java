@@ -19,6 +19,7 @@ import java.util.List;
 import javax.net.ssl.HostnameVerifier;
 
 import nl.galesloot_ict.efjenergy.helpers.NullHostnameVerifier;
+import nl.galesloot_ict.efjenergy.helpers.TrustAllSSLSimpleClientHttpRequestFactory;
 
 /**
  * Created by FlorisJan on 17-11-2014.

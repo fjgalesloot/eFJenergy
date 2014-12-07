@@ -5,20 +5,17 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
+
+import nl.galesloot_ict.efjenergy.MeterReading.FragmentMeterReadings;
+import nl.galesloot_ict.efjenergy.MeterReading.MeterReading;
+import nl.galesloot_ict.efjenergy.PowerUsage.FragmentPowerUsage;
+import nl.galesloot_ict.efjenergy.PowerUsage.PowerUsage;
 
 
 public class MainActivity extends Activity
@@ -58,19 +55,20 @@ public class MainActivity extends Activity
         Fragment fragment = null;
         switch ( position ) {
             case 0:
+                mTitle = getString(R.string.title_section_usage);
+                FragmentPowerUsage fragmentUsage = new FragmentPowerUsage();
+                fragmentUsage.setArguments(getIntent().getExtras());
+                fragment =  fragmentUsage;
+                break;
+            case 1:
                 mTitle = getString(R.string.title_section_meterreading);
                 FragmentMeterReadings fragmentMeterReadings = new FragmentMeterReadings();
                 fragmentMeterReadings.setArguments(getIntent().getExtras());
                 fragment=fragmentMeterReadings;
                 break;
-            case 1:
-                mTitle = getString(R.string.title_section_usage);
-                FragmentUsage fragmentUsage = new FragmentUsage();
-                fragmentUsage.setArguments(getIntent().getExtras());
-                fragment =  fragmentUsage;
-                break;
         }
         // update the main content by replacing fragments
+        getActionBar().setTitle(mTitle);
         FragmentManager fragmentManager = getFragmentManager();
         if ( fragment != null) {
             fragmentManager.beginTransaction()
@@ -124,12 +122,6 @@ public class MainActivity extends Activity
             startActivityForResult(i,RESULT_SETTINGS);
             return true;
         }
-        else if (id == R.id.action_refresh) {
-            Intent i = new Intent(this, SettingsActivity.class);
-            startActivityForResult(i,RESULT_SETTINGS);
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 

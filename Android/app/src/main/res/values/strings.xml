@@ -10,6 +10,7 @@
     <string name="action_refresh">Refresh</string>
     <string name="title_tarif1">Tarif 1</string>
     <string name="title_tarif2">Tarif 2</string>
+    <string name="title_totalkwh">Total kWh</string>
     <string name="title_tariftotal">Total</string>
     <string name="navigation_title">Select view</string>
 
@@ -27,9 +28,15 @@
     <string name="pref_title_api_key">API Key</string>
     <string name="pref_sum_api_key">Key to get access to API.</string>
 
-    <string name="MeterReadingFailed">Getting meter readings failed.</string>
+    <string name="MeterReadingRequestFailed">Getting meter readings failed.</string>
+    <string name="PowerUsageReadingRequestFailed">Getting power usage failed.</string>
 
     <string name="MaterReadingsBarChartTitle">Last week</string>
     <string name="MaterReadingsBarChartTitleX">Day of week</string>
     <string name="MaterReadingsBarChartTitleY">kWh</string>
+
+    <string name="puchart_titley">Watt</string>
+    <string name="puchart_avg">Average</string>
+    <string name="puchart_min">Minimum</string>
+    <string name="puchart_max">Maximum</string>
 </resources>

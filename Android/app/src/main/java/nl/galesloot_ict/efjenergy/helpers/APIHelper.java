@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import nl.galesloot_ict.efjenergy.R;
 import nl.galesloot_ict.efjenergy.SettingsActivity;
 
@@ -43,6 +46,21 @@ public class APIHelper {
     public String GetUrl(String method) {
         String url = GetUrl();
         url = url + method + "?apiKey=" + sharedPref.getString("pref_key_api_key","");
+        return url;
+    }
+
+    public String GetUrl(String method, String[] arguments) {
+        String url = GetUrl();
+        url = url + method;
+        for ( String argument : arguments) {
+            try {
+                url = url + "/" + URLEncoder.encode(argument, "UTF-8");
+            }
+            catch (UnsupportedEncodingException ex) {
+            }
+        }
+
+        url = url + "?apiKey=" + sharedPref.getString("pref_key_api_key","");
         return url;
     }
 

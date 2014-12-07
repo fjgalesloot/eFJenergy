@@ -16,30 +16,22 @@
 package nl.galesloot_ict.efjenergy.chart;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
-import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
-import org.achartengine.chart.BarChart.Type;
-import org.achartengine.model.CategorySeries;
 import org.achartengine.model.TimeSeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
-import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import nl.galesloot_ict.efjenergy.MainActivity;
-import nl.galesloot_ict.efjenergy.MeterReadingsList;
+import nl.galesloot_ict.efjenergy.MeterReading.MeterReadingsList;
 import nl.galesloot_ict.efjenergy.R;
 
 
@@ -65,6 +57,7 @@ public class MeterReadingsChart { //extends AbstractChart {
         renderer.setYTitle(context.getString(R.string.MaterReadingsBarChartTitleY));
         renderer.setAxesColor(Color.DKGRAY);
         renderer.setLabelsColor(Color.LTGRAY);
+        renderer.setXLabelsColor(Color.DKGRAY);
         //renderer.setXAxisMin(xMin);
         //renderer.setXAxisMax(xMax);
         renderer.setYAxisMin(0);
@@ -78,7 +71,7 @@ public class MeterReadingsChart { //extends AbstractChart {
         //renderer.setXLabelsAngle(90.0f);
         renderer.setYLabels(10);
         //renderer.setXLabelsAlign(Align.LEFT);
-        //renderer.setYLabelsAlign(Align.RIGHT);
+        renderer.setYLabelsAlign(Align.LEFT );
         renderer.setPanEnabled(true, true);
         renderer.setZoomEnabled(true);
         renderer.setZoomRate(1.1f);

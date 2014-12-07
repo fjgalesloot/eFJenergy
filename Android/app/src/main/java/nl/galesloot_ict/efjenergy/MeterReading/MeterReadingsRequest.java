@@ -1,11 +1,9 @@
-package nl.galesloot_ict.efjenergy;
+package nl.galesloot_ict.efjenergy.MeterReading;
 
 import android.content.Context;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
-import java.text.DateFormat;
 import java.util.Date;
 
 import nl.galesloot_ict.efjenergy.helpers.APIHelper;

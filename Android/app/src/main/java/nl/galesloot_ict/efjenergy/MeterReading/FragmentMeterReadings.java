@@ -1,12 +1,8 @@
-package nl.galesloot_ict.efjenergy;
+package nl.galesloot_ict.efjenergy.MeterReading;
 
-import android.app.ActionBar;
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.octo.android.robospice.Jackson2SpringAndroidSpiceService;
-import com.octo.android.robospice.JacksonSpringAndroidSpiceService;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
@@ -23,6 +17,8 @@ import com.octo.android.robospice.request.listener.RequestListener;
 
 import org.achartengine.GraphicalView;
 
+import nl.galesloot_ict.efjenergy.JsonSpiceService;
+import nl.galesloot_ict.efjenergy.R;
 import nl.galesloot_ict.efjenergy.chart.MeterReadingsChart;
 
 /**
@@ -72,7 +68,7 @@ public class FragmentMeterReadings extends Fragment {
     private void performRefresh() {
         //this.setProgressBarIndeterminateVisibility(true);
 
-        MeterReadingsRequest request = new MeterReadingsRequest("getmeterreadingslastweek", this.getActivity());
+        MeterReadingsRequest request = new MeterReadingsRequest(getString(R.string.api_getmeterreadingslastweek), this.getActivity());
         lastRequestCacheKey = request.createCacheKey();
         spiceManager.execute(request, lastRequestCacheKey, DurationInMillis.ONE_MINUTE, new ListMeterReadingsRequestListener());
     }
@@ -81,7 +77,7 @@ public class FragmentMeterReadings extends Fragment {
 
         @Override
         public void onRequestFailure(SpiceException e) {
-            Toast.makeText(getActivity(), getString(R.string.MeterReadingFailed), Toast.LENGTH_SHORT).show();            //update your UI
+            Toast.makeText(getActivity(), getString(R.string.MeterReadingRequestFailed), Toast.LENGTH_SHORT).show();            //update your UI
         }
 
         @Override
@@ -91,8 +87,8 @@ public class FragmentMeterReadings extends Fragment {
                     ((TextView) getView().findViewById(R.id.textViewTarif1)).setText(String.valueOf(meterReadingsList.get(meterReadingsList.size()-1).getTotalkWhTarif1()) + " kWh");
                     ((TextView) getView().findViewById(R.id.textViewTarif2)).setText(String.valueOf(meterReadingsList.get(meterReadingsList.size()-1).getTotalkWhTarif2()) + " kWh");
 
-                    MeterReadingsChart meterReadingsBarChart = new MeterReadingsChart();
-                    GraphicalView chartView = meterReadingsBarChart.execute(getActivity(), meterReadingsList);
+                    MeterReadingsChart meterReadingsChart = new MeterReadingsChart();
+                    GraphicalView chartView = meterReadingsChart.execute(getActivity(), meterReadingsList);
                     LinearLayout layout = (LinearLayout) getView().findViewById(R.id.meterreadings_chart);
                     if ( layout != null ) {
                         layout.removeAllViewsInLayout();
