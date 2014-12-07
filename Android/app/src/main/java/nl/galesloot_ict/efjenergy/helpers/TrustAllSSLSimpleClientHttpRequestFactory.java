@@ -1,4 +1,4 @@
-package nl.galesloot_ict.efjenergy;
+package nl.galesloot_ict.efjenergy.helpers;
 
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 

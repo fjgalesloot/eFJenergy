@@ -6,6 +6,7 @@
     <string name="title_section_usage">Verbruik</string>
     <string name="title_tarif1">Tarief 1</string>
     <string name="title_tarif2">Tarief 2</string>
+    <string name="title_totalkwh">Totaal kWh</string>
     <string name="title_tariftotal">Totaal</string>
 
     <string name="navigation_title">Selecteer pagina</string>
@@ -24,8 +25,12 @@
     <string name="pref_title_api_key">API Key</string>
     <string name="pref_sum_api_key">Key voor toegang tot API.</string>
 
-    <string name="MeterReadingFailed">Ophalen meterstanden mislukt.</string>
+    <string name="MeterReadingRequestFailed">Ophalen meterstanden mislukt.</string>
+    <string name="PowerUsageReadingRequestFailed">Ophalen verbruik gegevens mislukt.</string>
+
     <string name="MeterReadingsBarChartTitle">Afgelopen week</string>
     <string name="MaterReadingsBarChartTitleX">Dag van de week.</string>
+
+    <string name="puchart_avg">Gemiddeld</string>
 
 </resources>

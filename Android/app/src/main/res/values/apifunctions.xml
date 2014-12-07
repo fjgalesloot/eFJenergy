@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="api_getmeterreadingslastweek">getmeterreadingslastweek</string>
+    <string name="api_getpowerusage">getpowerusage</string>
+</resources>
