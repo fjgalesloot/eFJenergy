@@ -54,7 +54,7 @@ public class MeterReadingsChart { //extends AbstractChart {
 
         renderer.setChartTitle( context.getString(R.string.MeterReadingsBarChartTitle));
         renderer.setXTitle("");
-        renderer.setYTitle(context.getString(R.string.MaterReadingsBarChartTitleY));
+        renderer.setYTitle(context.getString(R.string.MeterReadingsBarChartTitleY));
         renderer.setAxesColor(Color.DKGRAY);
         renderer.setLabelsColor(Color.LTGRAY);
         renderer.setXLabelsColor(Color.DKGRAY);

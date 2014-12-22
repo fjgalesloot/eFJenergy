@@ -39,7 +39,7 @@ import java.util.Date;
 
 import nl.galesloot_ict.efjenergy.JsonSpiceService;
 import nl.galesloot_ict.efjenergy.R;
-import nl.galesloot_ict.efjenergy.SettingsActivity;
+import nl.galesloot_ict.efjenergy.MyPreferenceActivity;
 import nl.galesloot_ict.efjenergy.chart.PowerUsageChart;
 
 /**
