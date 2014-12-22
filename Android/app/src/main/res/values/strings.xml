@@ -31,9 +31,9 @@
     <string name="MeterReadingRequestFailed">Getting meter readings failed.</string>
     <string name="PowerUsageReadingRequestFailed">Getting power usage failed.</string>
 
-    <string name="MaterReadingsBarChartTitle">Last week</string>
-    <string name="MaterReadingsBarChartTitleX">Day of week</string>
-    <string name="MaterReadingsBarChartTitleY">kWh</string>
+    <string name="MeterReadingsBarChartTitle">Last week</string>
+    <string name="MeterReadingsBarChartTitleX">Day of week</string>
+    <string name="MeterReadingsBarChartTitleY">kWh</string>
 
     <string name="puchart_titley">Watt</string>
     <string name="puchart_avg">Average</string>

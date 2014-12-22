@@ -1,26 +1,23 @@
 package nl.galesloot_ict.efjenergy;
 
-import android.app.Activity;
-
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
 import nl.galesloot_ict.efjenergy.MeterReading.FragmentMeterReadings;
-import nl.galesloot_ict.efjenergy.MeterReading.MeterReading;
 import nl.galesloot_ict.efjenergy.PowerUsage.FragmentPowerUsage;
-import nl.galesloot_ict.efjenergy.PowerUsage.PowerUsage;
 
 
-public class MainActivity extends Activity
+public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
 
     private static final int RESULT_SETTINGS = 1;
 
@@ -40,14 +37,18 @@ public class MainActivity extends Activity
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         setContentView(R.layout.activity_main);
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //Toolbar will now take on default Action Bar characteristics
+        setSupportActionBar(toolbar);
+
+        /*mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         //mTitle = getTitle();
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+                (DrawerLayout) findViewById(R.id.drawer_layout));*/
     }
 
     @Override
@@ -68,7 +69,9 @@ public class MainActivity extends Activity
                 break;
         }
         // update the main content by replacing fragments
-        getActionBar().setTitle(mTitle);
+        ActionBar actionBar = getSupportActionBar();
+        if ( actionBar != null )
+                actionBar.setTitle(mTitle);
         FragmentManager fragmentManager = getFragmentManager();
         if ( fragment != null) {
             fragmentManager.beginTransaction()
@@ -89,10 +92,12 @@ public class MainActivity extends Activity
     }
 
     public void restoreActionBar() {
-        ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+        ActionBar actionBar = getSupportActionBar();
+        if ( actionBar != null ) {
+            //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setTitle(mTitle);
+        }
     }
 
 
@@ -118,7 +123,7 @@ public class MainActivity extends Activity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent i = new Intent(this, SettingsActivity.class);
+            Intent i = new Intent(this, MyPreferenceActivity.class);
             startActivityForResult(i,RESULT_SETTINGS);
             return true;
         }

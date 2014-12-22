@@ -8,7 +8,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import nl.galesloot_ict.efjenergy.R;
-import nl.galesloot_ict.efjenergy.SettingsActivity;
 
 /**
  * Created by FlorisJan on 4-12-2014.

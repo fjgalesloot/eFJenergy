@@ -1,8 +1,20 @@
 <resources>
-
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+      <style name="Theme.eFJenergy" parent="@style/Theme.AppCompat.Light">
+          <!--We will be using the toolbar so no need to show ActionBar-->
+          <item name="android:windowNoTitle">true</item>
+          <item name="android:windowActionBar">false</item>
+          <!-- customize the color palette -->
+          <item name="colorPrimary">@color/material_blue_500</item>
+          <item name="colorPrimaryDark">@color/material_blue_700</item>
+          <item name="colorAccent">@color/material_deeppurple_A200</item>
+    </style>
+
+    <style name="Theme.eFJenergy.Toolbar" parent="Theme.eFJenergy">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">?android:attr/actionBarSize</item>
+        <item name="android:background">@color/material_blue_500</item>
     </style>
 
 </resources>

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="navigation_drawer_open">Open naviagtie drawer</string>
+    <string name="navigation_drawer_close">Sluit navigatie Close navigation drawer</string>
+
     <string name="action_settings">Instellingen</string>
     <string name="action_refresh">Vernieuwen</string>
     <string name="title_section_meterreading">Meterstanden</string>
@@ -29,7 +32,7 @@
     <string name="PowerUsageReadingRequestFailed">Ophalen verbruik gegevens mislukt.</string>
 
     <string name="MeterReadingsBarChartTitle">Afgelopen week</string>
-    <string name="MaterReadingsBarChartTitleX">Dag van de week.</string>
+    <string name="MeterReadingsBarChartTitleX">Dag van de week.</string>
 
     <string name="puchart_avg">Gemiddeld</string>
 
