@@ -186,13 +186,13 @@ void process_p1_telegram_thread(void *arg)
 			}
 			int emoncms_retval = 0;
 			char *json_query_complete = malloc( sizeof(char*)* (strlen(json_query)+strlen(emoncms_urlbuilder)));
-			sprintf(json_query_complete,"%s%s", emoncms_urlbuilder, json_string);
+			sprintf(json_query_complete,"%s%s", emoncms_urlbuilder, json_query);
 			if ( (emoncms_retval = http_input_emoncms( json_query_complete, emoncms_server, emoncms_port ) ) < 0 )
 			{
 				sprintf(debugmessage," !! error saving data to Emoncms!");
-				printf_error("Error saving data to Emoncms: Statement = %s\n", json_string);
-				char *eventtext = malloc((strlen(json_string)+40)*sizeof(char));
-				sprintf(eventtext, "Error saving data to Emoncms: JSON:\n%s\n", json_string);
+				printf_error("Error saving data to Emoncms: Statement = %s\n", json_query);
+				char *eventtext = malloc((strlen(json_query)+40)*sizeof(char));
+				sprintf(eventtext, "Error saving data to Emoncms: JSON:\n%s\n", json_query);
 				eventlog(eventtext);
 				free(eventtext);
 			}
@@ -203,7 +203,7 @@ void process_p1_telegram_thread(void *arg)
 			sprintf(debugmessage,"\n");
 		}
 		if ( mysql_statement != NULL ) free(mysql_statement);
-		if ( json_string != NULL ) free(json_string);
+		if ( json_query != NULL ) free(json_query);
 		if ( decodedp1data != NULL ) free(decodedp1data);
 		
 		current_p1_telegram->active = 0;
