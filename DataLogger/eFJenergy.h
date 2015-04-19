@@ -19,7 +19,7 @@ void process_p1_telegram_thread(void *arg);
 void do_stuff (void );
 void catch_term (int );
 void eventlog(char *e);
-int mysql_write( char *);
+unsigned long mysql_write( char *);
 
 
 typedef struct p1_telegram_io_comm_struct
