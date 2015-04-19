@@ -18,7 +18,7 @@
 #endif
 
 
-int http_input_emoncms (  string json_string )
+int http_input_emoncms (  char *json_string )
 {
 	struct sockaddr_in *remote;
 	int sock;

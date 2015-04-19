@@ -169,7 +169,7 @@ char **readp1_decode( char *p1_telegram )
 	retval[0]=mysql_statement;
 	retval[1]=json_string;
 	
-	return retval;
+	return &retval;
 }
 
 char *readline( char* buffer, int *position, int maxsize )
