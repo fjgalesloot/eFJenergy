@@ -353,28 +353,9 @@ int emoncms_json_input( char *json_string )
 {
 	#ifndef	NOEMONCMS
 	
-	if ( mysql_conn == NULL || mysql_real_connect (mysql_conn, mysql_server, mysql_username, mysql_password, mysql_database, 0, NULL, 0) == NULL )
-	{
-		printf_outputerror("MySQL query not saved: %s\n",mysql_statement);
-		mysql_close( mysql_conn );
-		mysql_write_affected_rows = -3;
-		return 0;
-	}
-	
-	int retval = mysql_query( mysql_conn, mysql_statement);
-	if ( retval == 0 )
-		mysql_write_affected_rows = mysql_affected_rows (mysql_conn);
-	else
-		mysql_write_affected_rows = -1;
-	mysql_close( mysql_conn );
-	pthread_mutex_unlock(&mysql_lock);
-	printf_debug("mysql_write: unlocked\n");
-	return retval;
 	#else
 	printf_outputerror("JSON: %s\n",json_string);
 	fflush(stdout);
-	mysql_write_affected_rows = -2;
-
 	return 0;
 	#endif
 	
