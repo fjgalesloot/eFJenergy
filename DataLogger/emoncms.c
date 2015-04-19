@@ -81,7 +81,7 @@ int http_input_emoncms (  char *json_string, char* host, unsigned int port )
 		if ( (tmpres = recv(sock, buf, BUFSIZ, 0)) > 0 )
 		{
 			json_response = buf;
-			if(tmpres >= 2 && strncmp("ok", json_response) != 0)
+			if(tmpres >= 2 && strncmp("ok", json_response,2) != 0)
 			{
 				//other return than "ok"
 				printf_error("JSON return NON-OK: %s\n",json_response);
