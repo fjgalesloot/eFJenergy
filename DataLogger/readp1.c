@@ -1,7 +1,7 @@
 #include "readp1.h"
 
 //#define NOMYSQL // define to output MySQL statements to stdout
-#define DEBUG
+//#define DEBUG
 //#define ERROR
 
 #ifdef DEBUG

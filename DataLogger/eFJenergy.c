@@ -40,7 +40,7 @@ const char *mysql_password = "D27edY3ZChcR6CmP";
 
 const char *emoncms_server = "localhost";
 const int emoncms_port = 80;
-const char *emoncms_urlbuilder = "/input/post.json?node=1&apikey=a525c39d6c3cc524127076c5373f2669&";
+const char *emoncms_urlbuilder = "/api/post.json?node=1&apikey=a525c39d6c3cc524127076c5373f2669&";
 
 
 pthread_mutex_t mysql_lock;
