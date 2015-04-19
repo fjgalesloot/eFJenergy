@@ -100,11 +100,13 @@ char *readp1_findlineforcode( char *p1code, char *p1_telegram, int *curposition,
 	return line;
 }
 
-char *readp1_decode2mysql( char *p1_telegram )
+char **readp1_decode( char *p1_telegram )
 {
-	printf_debug(" readp1_decode2mysql ");
+	printf_debug(" readp1_decode ");
 	const char *mysql_statement_base = "INSERT INTO ElectricityP1 (MeasurementTimeStamp,TotalkWhTarif1,TotalkWhTarif2,CurrentTarif,CurrentUsagekWatt,CurrentUsageL1A,CurrentUsageL2A,CurrentUsageL3A,CurrentUsageL1kWatt,CurrentUsageL2kWatt,CurrentUsageL3kWatt) VALUES ('%s',%f,%f,%d,%f,%d,%d,%d,%f,%f,%f);";
+	const char *json_base = "time=%s&json={TotalkWhTarif1:%f,TotalkWhTarif2:%f,CurrentTarif:%d,CurrentUsagekWatt:%f,CurrentUsageL1kWatt:%f,CurrentUsageL2kWatt:%f,CurrentUsageL3kWatt:%f}";
 	char *mysql_statement = malloc ( 1024*sizeof(char) );
+	char *json_string = malloc ( 1024*sizeof(char) );
 	int curposition = 0;
 	int maxsize = strlen(p1_telegram);
 	char *line;
@@ -158,10 +160,16 @@ char *readp1_decode2mysql( char *p1_telegram )
 	double CurrentUsageL3Watt = readp1_double_withunit(line);
 	
 	sprintf( mysql_statement, mysql_statement_base, MeasurementTimeStamp,TotalkWhTarif1,TotalkWhTarif2,CurrentTarif,CurrentUsageWatt,CurrentUsageL1A,CurrentUsageL2A,CurrentUsageL3A,CurrentUsageL1Watt,CurrentUsageL2Watt,CurrentUsageL3Watt);
+	sprintf( json_string, json_base, MeasurementTimeStamp,TotalkWhTarif1,TotalkWhTarif2,CurrentTarif,CurrentUsageWatt,CurrentUsageL1Watt,CurrentUsageL2Watt,CurrentUsageL3Watt);
 	
 	printf_debug("readp1:mysql_statement=%s\n\r",mysql_statement);
+	printf_debug("readp1:json_string=%s\n\r",json_string);
 	
-	return mysql_statement;
+	char *retval[2];
+	retval[0]=mysql_statement;
+	retval[1]=json_string;
+	
+	return retval;
 }
 
 char *readline( char* buffer, int *position, int maxsize )
