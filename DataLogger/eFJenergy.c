@@ -330,7 +330,7 @@ unsigned long mysql_write( char *mysql_statement )
 	{
 		printf_outputerror("MySQL query not saved: %s\n",mysql_statement);
 		mysql_close( mysql_conn );
-		return = -3;
+		return -3;
 	}
 	
 	unsigned long retval = mysql_query( mysql_conn, mysql_statement);
