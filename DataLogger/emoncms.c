@@ -1,8 +1,8 @@
 #include "emoncms.h"
 
-//#define NOEMONCMS // define to output MySQL statements to stdout
-//#define DEBUG
-//#define ERROR
+#define NOEMONCMS // define to output MySQL statements to stdout
+#define DEBUG
+#define ERROR
 
 #ifdef DEBUG
 #define printf_debug(fmt, args...)    printf(fmt, ## args);fflush(stdout)
@@ -18,7 +18,7 @@
 #endif
 
 
-int http_input_emoncms (  char *json_string )
+int http_input_emoncms (  char *json_string, char* host, unsigned int port,  )
 {
 	struct sockaddr_in *remote;
 	int sock;
@@ -28,7 +28,8 @@ int http_input_emoncms (  char *json_string )
 	char buf[BUFSIZ+1];
 	char *host;
 	char *page;
-
+	int reval=0;
+	
 	sock = create_tcp_socket();
 	ip = get_ip(host);
 
@@ -37,6 +38,7 @@ int http_input_emoncms (  char *json_string )
 	remote = (struct sockaddr_in *)malloc(sizeof(struct sockaddr_in *));
 	remote->sin_family = AF_INET;
 	tmpres = inet_pton(AF_INET, ip, (void *)(&(remote->sin_addr.s_addr)));
+
 	if( tmpres < 0)  
 	{
 		printf_error("Can't set remote->sin_addr.s_addr");
@@ -77,14 +79,14 @@ int http_input_emoncms (  char *json_string )
 	char *json_response;
 	if ( retval == 0 )
 	{
-		if ( (tempres = recv(sock, buf, BUFSIZ, 0)) > 0 )
+		if ( (tmpres = recv(sock, buf, BUFSIZ, 0)) > 0 )
 		{
 			json_response = buf;
-			if(tempres >= 2 && strncmp("ok", json_response) != 0)
+			if(tmpres >= 2 && strncmp("ok", json_response) != 0)
 			{
 				//other return than "ok"
 				printf_error("JSON return NON-OK: %s\n",json_response);
-				retval = -5
+				retval = -5;
 			}
 			else
 			{
