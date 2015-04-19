@@ -37,7 +37,12 @@ const char *mysql_server = "daffy.internal.triplew.nl";
 const char *mysql_database = "eFJenergy";
 const char *mysql_username = "eFJenergy";
 const char *mysql_password = "D27edY3ZChcR6CmP";
-unsigned long mysql_write_affected_rows;
+
+const char *emoncms_server = "localhost";
+const int emoncms_port = 80;
+const char *emoncms_urlbuilder = "/input/post.json?node=1&apikey=a525c39d6c3cc524127076c5373f2669"
+
+
 pthread_mutex_t mysql_lock;
 
 time_t  lastdata_p1;
@@ -153,6 +158,7 @@ void process_p1_telegram_thread(void *arg)
 		debugmessage[0] = 0;
 		sprintf(debugmessage,"%s process_p1_telegram_thread %d waking",debugmessage, current_p1_telegram->instance);
 		char *mysql_statement = readp1_decode2mysql(current_p1_telegram->telegram);
+		int mysql_retval = 0;
 		if ( mysql_statement == NULL )
 		{
 			sprintf(debugmessage,"%s  !! error decoding p1. result=NULL\n", debugmessage);
@@ -161,7 +167,7 @@ void process_p1_telegram_thread(void *arg)
 			printf_error("Error decoding p1. result=NULL\n");
 			eventlog("Error decoding p1. result=NULL\n");
 		}
-		else if ( mysql_write( mysql_statement ) != 0 )
+		else if ( mysql_retval = mysql_write( mysql_statement ) < 0 )
 		{
 			sprintf(debugmessage," !! error saving data to MySQL!\n");
 			printf_error("Error saving data to MySQL: Statement = %s\n", mysql_statement);
@@ -172,7 +178,7 @@ void process_p1_telegram_thread(void *arg)
 		}
 		else
 		{
-			sprintf(debugmessage,"; %lu rows saved to MySQL\n",mysql_write_affected_rows);
+			sprintf(debugmessage,"; %lu rows saved to MySQL\n",mysql_retval);
 		}
 		if ( mysql_statement != NULL ) free(mysql_statement);
 		current_p1_telegram->active = 0;
@@ -324,6 +330,33 @@ int mysql_write( char *mysql_statement )
 	{
 		printf_outputerror("MySQL query not saved: %s\n",mysql_statement);
 		mysql_close( mysql_conn );
+		return = -3;
+	}
+	
+	int retval = mysql_query( mysql_conn, mysql_statement);
+	if ( retval == 0 )
+		retval = mysql_affected_rows (mysql_conn);
+	else
+		retval = -1;
+	mysql_close( mysql_conn );
+	pthread_mutex_unlock(&mysql_lock);
+	printf_debug("mysql_write: unlocked\n");
+	return retval;
+	#else
+	printf_outputerror("MySQL: %s\n",mysql_statement);
+	fflush(stdout);
+	return 0;
+	#endif
+}
+
+int emoncms_json_input( char *json_string )
+{
+	#ifndef	NOEMONCMS
+	
+	if ( mysql_conn == NULL || mysql_real_connect (mysql_conn, mysql_server, mysql_username, mysql_password, mysql_database, 0, NULL, 0) == NULL )
+	{
+		printf_outputerror("MySQL query not saved: %s\n",mysql_statement);
+		mysql_close( mysql_conn );
 		mysql_write_affected_rows = -3;
 		return 0;
 	}
@@ -338,12 +371,13 @@ int mysql_write( char *mysql_statement )
 	printf_debug("mysql_write: unlocked\n");
 	return retval;
 	#else
-	printf_outputerror("MySQL: %s\n",mysql_statement);
+	printf_outputerror("JSON: %s\n",json_string);
 	fflush(stdout);
 	mysql_write_affected_rows = -2;
 
 	return 0;
 	#endif
+	
 }
 
 int OpenComport_P1(void)
