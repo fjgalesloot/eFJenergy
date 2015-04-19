@@ -109,7 +109,7 @@ char *build_get_query(char *host, char *page)
   char *tpl = "GET /%s HTTP/1.0\r\nHost: %s\r\nUser-Agent: %s\r\n\r\n";
   if(getpage[0] == '/'){
     getpage = getpage + 1;
-    fprintf(stderr,"Removing leading \"/\", converting %s to %s\n", page, getpage);
+    printf_error("Removing leading \"/\", converting %s to %s\n", page, getpage);
   }
   // -5 is to consider the %s %s %s in tpl and the ending \0
   query = (char *)malloc(strlen(host)+strlen(getpage)+strlen(USERAGENT)+strlen(tpl)-5);
@@ -121,7 +121,7 @@ int create_tcp_socket()
 {
   int sock;
   if((sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0){
-    perror("Can't create TCP socket");
+    printf_error("Can't create TCP socket");
     exit(1);
   }
   return sock;
@@ -136,12 +136,12 @@ char *get_ip(char *host)
   memset(ip, 0, iplen+1);
   if((hent = gethostbyname(host)) == NULL)
   {
-    herror("Can't get IP");
+    printf_error("Can't get IP");
     exit(1);
   }
   if(inet_ntop(AF_INET, (void *)hent->h_addr_list[0], ip, iplen) == NULL)
   {
-    perror("Can't resolve host");
+    printf_error("Can't resolve host");
     exit(1);
   }
   return ip;
