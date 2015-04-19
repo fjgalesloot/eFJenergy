@@ -1,8 +1,7 @@
 #include "emoncms.h"
 
-#define NOEMONCMS // define to output MySQL statements to stdout
-#define DEBUG
-#define ERROR
+//#define DEBUG
+//#define ERROR
 
 #ifdef DEBUG
 #define printf_debug(fmt, args...)    printf(fmt, ## args);fflush(stdout)
