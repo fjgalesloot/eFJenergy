@@ -40,7 +40,7 @@ const char *mysql_password = "D27edY3ZChcR6CmP";
 
 const char *emoncms_server = "localhost";
 const int emoncms_port = 80;
-const char *emoncms_urlbuilder = "/input/post.json?node=1&apikey=a525c39d6c3cc524127076c5373f2669";
+const char *emoncms_urlbuilder = "/input/post.json?node=1&apikey=a525c39d6c3cc524127076c5373f2669&";
 
 
 pthread_mutex_t mysql_lock;
@@ -157,9 +157,10 @@ void process_p1_telegram_thread(void *arg)
 		debugmessage = malloc(1024*sizeof(char));
 		debugmessage[0] = 0;
 		sprintf(debugmessage,"%s process_p1_telegram_thread %d waking",debugmessage, current_p1_telegram->instance);
-		char *mysql_statement = readp1_decode2mysql(current_p1_telegram->telegram);
-		unsigned long mysql_retval = 0;
-		if ( mysql_statement == NULL )
+		char **decodedp1data = readp1_decode2mysql(current_p1_telegram->telegram);
+		char *mysql_statement = decodedp1data[0];
+		char *json_query = decodedp1data[1];
+		if ( mysql_statement == NULL || json_query == NULL )
 		{
 			sprintf(debugmessage,"%s  !! error decoding p1. result=NULL\n", debugmessage);
 			sprintf(debugmessage,"%s  !! telegram:\n%s\n", debugmessage, current_p1_telegram->telegram );
@@ -167,20 +168,44 @@ void process_p1_telegram_thread(void *arg)
 			printf_error("Error decoding p1. result=NULL\n");
 			eventlog("Error decoding p1. result=NULL\n");
 		}
-		else if ( mysql_retval = mysql_write( mysql_statement ) < 0 )
+		else 
 		{
-			sprintf(debugmessage," !! error saving data to MySQL!\n");
-			printf_error("Error saving data to MySQL: Statement = %s\n", mysql_statement);
-			char *eventtext = malloc((strlen(mysql_statement)+40)*sizeof(char));
-			sprintf(eventtext, "Error saving data to MySQL: Statement:\n%s\n", mysql_statement);
-			eventlog(eventtext);
-			free(eventtext);
-		}
-		else
-		{
-			sprintf(debugmessage,"; %lu rows saved to MySQL\n",mysql_retval);
+			unsigned long mysql_retval = 0;
+			if ( (mysql_retval = mysql_write( mysql_statement )) < 0 )
+			{
+				sprintf(debugmessage," !! error saving data to MySQL!");
+				printf_error("Error saving data to MySQL: Statement = %s\n", mysql_statement);
+				char *eventtext = malloc((strlen(mysql_statement)+40)*sizeof(char));
+				sprintf(eventtext, "Error saving data to MySQL: Statement:\n%s\n", mysql_statement);
+				eventlog(eventtext);
+				free(eventtext);
+			}
+			else
+			{
+				sprintf(debugmessage,"; %lu rows saved to MySQL",mysql_retval);
+			}
+			int emoncms_retval = 0;
+			char *json_query = malloc( sizeof(char*)* (strlen(json_string)+strlen(emoncms_urlbuilder)));
+			sprintf(json_query,"%s%s", emoncms_urlbuilder, json_string);
+			if ( (emoncms_retval = http_input_emoncms( json_query, emoncms_server, port ) ) < 0 )
+			{
+				sprintf(debugmessage," !! error saving data to Emoncms!");
+				printf_error("Error saving data to Emoncms: Statement = %s\n", json_string);
+				char *eventtext = malloc((strlen(json_string)+40)*sizeof(char));
+				sprintf(eventtext, "Error saving data to Emoncms: JSON:\n%s\n", json_string);
+				eventlog(eventtext);
+				free(eventtext);
+			}
+			else
+			{
+				sprintf(debugmessage,"; data saved to Emoncms");
+			}
+			sprintf(debugmessage,"\n");
 		}
 		if ( mysql_statement != NULL ) free(mysql_statement);
+		if ( json_string != NULL ) free(json_string);
+		if ( decodedp1data != NULL ) free(decodedp1data);
+		
 		current_p1_telegram->active = 0;
 		printf_debug("%s",debugmessage);
 		free(debugmessage);
