@@ -165,11 +165,12 @@ char **readp1_decode( char *p1_telegram )
 	printf_debug("readp1:mysql_statement=%s\n\r",mysql_statement);
 	printf_debug("readp1:json_string=%s\n\r",json_string);
 	
-	char *retval[2];
+	char **retval;
+	retval = malloc( sizeof(char *)*2 );
 	retval[0]=mysql_statement;
 	retval[1]=json_string;
 	
-	return &retval;
+	return retval;
 }
 
 char *readline( char* buffer, int *position, int maxsize )
