@@ -200,7 +200,7 @@ void process_p1_telegram_thread(void *arg)
 			{
 				sprintf(debugmessage,"%s; data saved to Emoncms", debugmessage);
 			}
-			sprintf(debugmessage,"\n");
+			sprintf(debugmessage,"%s\n", debugmessage);
 		}
 		if ( mysql_statement != NULL ) free(mysql_statement);
 		if ( json_query != NULL ) free(json_query);

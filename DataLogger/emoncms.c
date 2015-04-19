@@ -26,7 +26,6 @@ int http_input_emoncms (  char *json_string, char* host, unsigned int port )
 	char *ip;
 	char *get;
 	char buf[BUFSIZ+1];
-	char *page;
 	int retval=0;
 	
 	sock = create_tcp_socket();
@@ -58,7 +57,7 @@ int http_input_emoncms (  char *json_string, char* host, unsigned int port )
 		printf_error("Could not connect");
 		retval = -3;
 	}
-	get = build_get_query(host, page);
+	get = build_get_query(host, json_string);
 	printf_debug("Query is:\n<<START>>\n%s<<END>>\n", get);
 
 	//Send the query to the server
