@@ -10,5 +10,7 @@
 int create_tcp_socket();
 char *get_ip(char *host);
 char *build_get_query(char *host, char *page);
+int http_input_emoncms (  char *json_string, char* host, unsigned int port );
+
 
  
