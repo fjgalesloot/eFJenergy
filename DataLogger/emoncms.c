@@ -26,9 +26,8 @@ int http_input_emoncms (  char *json_string, char* host, unsigned int port )
 	char *ip;
 	char *get;
 	char buf[BUFSIZ+1];
-	char *host;
 	char *page;
-	int reval=0;
+	int retval=0;
 	
 	sock = create_tcp_socket();
 	ip = get_ip(host);
@@ -52,7 +51,7 @@ int http_input_emoncms (  char *json_string, char* host, unsigned int port )
 			retval = -2;
 		}
 	}
-	remote->sin_port = htons(PORT);
+	remote->sin_port = htons(port);
 
 	if(connect(sock, (struct sockaddr *)remote, sizeof(struct sockaddr)) < 0)
 	{
