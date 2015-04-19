@@ -157,7 +157,7 @@ void process_p1_telegram_thread(void *arg)
 		debugmessage = malloc(1024*sizeof(char));
 		debugmessage[0] = 0;
 		sprintf(debugmessage,"%s process_p1_telegram_thread %d waking",debugmessage, current_p1_telegram->instance);
-		char **decodedp1data = readp1_decode2mysql(current_p1_telegram->telegram);
+		char **decodedp1data = readp1_decode(current_p1_telegram->telegram);
 		char *mysql_statement = decodedp1data[0];
 		char *json_query = decodedp1data[1];
 		if ( mysql_statement == NULL || json_query == NULL )
@@ -185,9 +185,9 @@ void process_p1_telegram_thread(void *arg)
 				sprintf(debugmessage,"; %lu rows saved to MySQL",mysql_retval);
 			}
 			int emoncms_retval = 0;
-			char *json_query = malloc( sizeof(char*)* (strlen(json_string)+strlen(emoncms_urlbuilder)));
-			sprintf(json_query,"%s%s", emoncms_urlbuilder, json_string);
-			if ( (emoncms_retval = http_input_emoncms( json_query, emoncms_server, port ) ) < 0 )
+			char *json_query_complete = malloc( sizeof(char*)* (strlen(json_query)+strlen(emoncms_urlbuilder)));
+			sprintf(json_query_complete,"%s%s", emoncms_urlbuilder, json_string);
+			if ( (emoncms_retval = http_input_emoncms( json_query_complete, emoncms_server, emoncms_port ) ) < 0 )
 			{
 				sprintf(debugmessage," !! error saving data to Emoncms!");
 				printf_error("Error saving data to Emoncms: Statement = %s\n", json_string);

@@ -9,5 +9,5 @@ int 		readp1_int( char *line );
 struct tm 	readp1_date( char *line );
 
 char *readp1_findlineforcode( char *p1code, char *p1_telegram, int *curposition, int maxsize );
-char *readp1_decode2mysql( char *p1_telegram );
+char **readp1_decode( char *p1_telegram );
 char *readline( char* buffer, int *position, int maxsize );
