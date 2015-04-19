@@ -40,7 +40,7 @@ const char *mysql_password = "D27edY3ZChcR6CmP";
 
 const char *emoncms_server = "localhost";
 const int emoncms_port = 80;
-const char *emoncms_urlbuilder = "/input/post.json?node=1&apikey=a525c39d6c3cc524127076c5373f2669"
+const char *emoncms_urlbuilder = "/input/post.json?node=1&apikey=a525c39d6c3cc524127076c5373f2669";
 
 
 pthread_mutex_t mysql_lock;
@@ -158,7 +158,7 @@ void process_p1_telegram_thread(void *arg)
 		debugmessage[0] = 0;
 		sprintf(debugmessage,"%s process_p1_telegram_thread %d waking",debugmessage, current_p1_telegram->instance);
 		char *mysql_statement = readp1_decode2mysql(current_p1_telegram->telegram);
-		int mysql_retval = 0;
+		unsigned long mysql_retval = 0;
 		if ( mysql_statement == NULL )
 		{
 			sprintf(debugmessage,"%s  !! error decoding p1. result=NULL\n", debugmessage);
@@ -318,7 +318,7 @@ void eventlog(char *eventtext)
 	free(mysql_statement);
 }
 
-int mysql_write( char *mysql_statement )
+unsigned long mysql_write( char *mysql_statement )
 {
 	#ifndef	NOMYSQL
 	printf_debug("mysql_write: wait for lock\n");
@@ -333,7 +333,7 @@ int mysql_write( char *mysql_statement )
 		return = -3;
 	}
 	
-	int retval = mysql_query( mysql_conn, mysql_statement);
+	unsigned long retval = mysql_query( mysql_conn, mysql_statement);
 	if ( retval == 0 )
 		retval = mysql_affected_rows (mysql_conn);
 	else
