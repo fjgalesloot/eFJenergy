@@ -7,7 +7,8 @@
 #include "eFJenergy.h"
 
 //#define NOMYSQL // define to output MySQL statements to stdout
-#define DEBUG
+//#define NOEMONCMS // define to output MySQL statements to stdout
+//#define DEBUG
 //#define ERROR
 
 #ifdef DEBUG
@@ -336,7 +337,7 @@ void eventlog(char *eventtext)
 {
 	char *mysql_statement = malloc((strlen(eventtext)+63)*sizeof(char));
 	sprintf( mysql_statement, "INSERT INTO EventLog (Program,Event) VALUES ('eFJenergy','%s');", eventtext);
-	if (  mysql_write ( mysql_statement) != 0 )
+	if (  mysql_write ( mysql_statement) != 1 )
 	{
 		printf_debug("Error saving EventLog to MySQL!: %s\n",mysql_statement);
 	}
