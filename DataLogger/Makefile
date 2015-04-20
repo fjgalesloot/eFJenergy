@@ -4,7 +4,7 @@ INSTALLDIR=/opt/eFJenergy
 eFJenergy: eFJenergy.o rs232.o procstat.o readp1.o emoncms.o
 	$(CC) $(LDFLAGS) eFJenergy.o rs232.o readp1.o emoncms.o -o eFJenergy -lm -lmysqlclient -lz -pthread # -luClibc++
 
-eFJenergy.o: eFJenergy.c 
+eFJenergy.o: eFJenergy.c settings.h
 	$(CC) $(CFLAGS) -c  eFJenergy.c 
 
 rs232.o: rs232.c 
