@@ -5,11 +5,7 @@
 *****************/
 
 #include "eFJenergy.h"
-
-//#define NOMYSQL // define to output MySQL statements to stdout
-//#define NOEMONCMS // define to output MySQL statements to stdout
-//#define DEBUG
-//#define ERROR
+#include "settings.h"
 
 #ifdef DEBUG
 #define printf_debug(fmt, args...)    printf(fmt, ## args);fflush(stdout)
@@ -29,20 +25,6 @@
 
 /* This flag controls termination of the main loop. */
 volatile sig_atomic_t keep_going = 1;
-
-const int comport_device_p1 = 16;
-const int comport_baud_p1 = 115200;
-const int maxdelay_p1 = 20;
-
-const char *mysql_server = "daffy.internal.triplew.nl";
-const char *mysql_database = "eFJenergy";
-const char *mysql_username = "eFJenergy";
-const char *mysql_password = "D27edY3ZChcR6CmP";
-
-const char *emoncms_server = "localhost";
-const int emoncms_port = 80;
-const char *emoncms_urlbuilder = "/api/post.json?node=1&apikey=a525c39d6c3cc524127076c5373f2669&";
-
 
 pthread_mutex_t mysql_lock;
 
@@ -188,7 +170,7 @@ void process_p1_telegram_thread(void *arg)
 			int emoncms_retval = 0;
 			char *json_query_complete = malloc( sizeof(char*)* (strlen(json_query)+strlen(emoncms_urlbuilder)));
 			sprintf(json_query_complete,"%s%s", emoncms_urlbuilder, json_query);
-			if ( (emoncms_retval = http_input_emoncms( json_query_complete, emoncms_server, emoncms_port ) ) < 0 )
+			if ( (emoncms_retval = emoncms_write( json_query_complete ) ) < 0 )
 			{
 				sprintf(debugmessage,"%s !! error saving data to Emoncms!", debugmessage);
 				printf_error("Error saving data to Emoncms: Statement = %s\n", json_query);
@@ -369,19 +351,18 @@ unsigned long mysql_write( char *mysql_statement )
 	printf_debug("mysql_write: unlocked\n");
 	return retval;
 	#else
-	printf_outputerror("MySQL: %s\n",mysql_statement);
+	printf_debug("MySQL: %s\n",mysql_statement);
 	fflush(stdout);
 	return 0;
 	#endif
 }
 
-int emoncms_json_input( char *json_string )
+int emoncms_write(  char *json_query )
 {
 	#ifndef	NOEMONCMS
-	
+	return http_input_emoncms( json_query, emoncms_server, emoncms_port );
 	#else
-	printf_outputerror("JSON: %s\n",json_string);
-	fflush(stdout);
+	printf_debug("Emoncms JSON: %s\n",json_query);
 	return 0;
 	#endif
 	
