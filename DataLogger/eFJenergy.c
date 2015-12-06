@@ -172,7 +172,7 @@ void process_p1_telegram_thread(void *arg)
 			sprintf(json_query_complete,"%s%s", emoncms_urlbuilder, json_query);
 			if ( (emoncms_retval = emoncms_write( json_query_complete ) ) < 0 )
 			{
-				sprintf(debugmessage,"%s !! error saving data to Emoncms!", debugmessage);
+				sprintf(debugmessage,"%s !! error saving data to Emoncms (return val:%d)!", debugmessage,emoncms_retval);
 				printf_error("Error saving data to Emoncms: Statement = %s\n", json_query);
 				char *eventtext = malloc((strlen(json_query)+40)*sizeof(char));
 				sprintf(eventtext, "Error saving data to Emoncms: JSON:\n%s\n", json_query);
